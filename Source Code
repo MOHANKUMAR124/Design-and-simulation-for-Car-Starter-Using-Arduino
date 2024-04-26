@@ -1,0 +1,41 @@
+// Pin definitions
+const int startButtonPin = 2; // Connect the push button to pin 2
+const int relayPin = 3; // Connect the relay module to pin 3
+const int engineRunningLED = 4; // LED to indicate engine running status
+
+// Variables
+bool isEngineRunning = false;
+
+void setup() {
+  // Initialize pins
+  pinMode(startButtonPin, INPUT_PULLUP);
+  pinMode(relayPin, OUTPUT);
+  pinMode(engineRunningLED, OUTPUT);
+
+  // Initially, turn off the relay and engine running LED
+  digitalWrite(relayPin, LOW);
+  digitalWrite(engineRunningLED, LOW);
+}
+
+void loop() {
+  // Check if the start button is pressed
+  if (digitalRead(startButtonPin) == LOW) {
+    startEngine();
+  }
+}
+
+void startEngine() {
+  // If the engine is not running, start it
+  if (!isEngineRunning) {
+    // Simulate starting the engine
+    digitalWrite(relayPin, HIGH); // Turn on the relay
+    delay(2000); // Simulate ignition process
+    digitalWrite(relayPin, LOW); // Turn off the relay
+
+    // Update status
+    isEngineRunning = true;
+
+    // Turn on engine running LED
+    digitalWrite(engineRunningLED, HIGH);
+  }
+}
